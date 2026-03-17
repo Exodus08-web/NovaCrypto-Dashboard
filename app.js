@@ -2,7 +2,7 @@
 let overview, watch, gainers, losers, coinQuick;
 let coins=[], watchlist=JSON.parse(localStorage.getItem("watch"))||[], chartInstance=null;
 
-// LOGIN
+// LOGIN / LOGOUT
 document.getElementById("loginBtn").addEventListener("click", login);
 document.getElementById("logoutBtn").addEventListener("click", logout);
 
@@ -45,7 +45,7 @@ document.getElementById("backBtn").addEventListener("click", ()=>{
   renderWatch(); renderGainers(); renderLosers();
 });
 
-// ADD TO WATCHLIST
+// WATCHLIST
 function addWatch(name){
   if(!watchlist.includes(name)){
     watchlist.push(name);
@@ -54,7 +54,7 @@ function addWatch(name){
   }
 }
 
-// SHOW DETAIL WITH SIMULATED LINE CHART
+// SHOW DETAIL WITH SAFE SIMULATED CHART
 function showDetail(name){
   overview.style.display="none"; watch.style.display="none"; gainers.style.display="none"; losers.style.display="none";
   const detail=document.getElementById("detail");
@@ -62,15 +62,11 @@ function showDetail(name){
   document.getElementById("coinTitle").innerText=name;
 
   const coin = coins.find(c=>c.name===name);
-
-  // Generate simulated chart data (numeric x, safe)
   if(!coin.candles || coin.candles.length===0){
     coin.candles = Array.from({length:30}, (_,i)=>({x:i, y: +(Math.random()*50000+1000).toFixed(2)}));
   }
 
-  // Destroy old chart safely
   if(chartInstance){ chartInstance.destroy(); chartInstance=null; }
-
   const ctx = document.getElementById("bigChart").getContext("2d");
   chartInstance = new Chart(ctx,{
     type:'line',
@@ -178,3 +174,9 @@ if(localStorage.getItem("loggedIn")){
   document.getElementById("dashboard").style.display="flex";
   initDashboard();
 }
+
+// MOBILE HAMBURGER TOGGLE
+const hamburger = document.getElementById("hamburger");
+hamburger?.addEventListener("click", ()=>{
+  document.querySelector(".sidebar").classList.toggle("sidebar-collapsed");
+});
