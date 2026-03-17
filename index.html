@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaCrypto Dashboard</title>
+<link rel="stylesheet" href="style.css">
+
+<!-- Chart.js stable line chart (no financial plugin needed) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.2.0"></script>
+</head>
+<body>
+
+<div id="loginPage">
+  <h2>Login to NovaCrypto</h2>
+  <input type="text" id="username" placeholder="Username" autocomplete="username">
+  <input type="password" id="password" placeholder="Password" autocomplete="current-password">
+  <button id="loginBtn">Login</button>
+</div>
+
+<div id="dashboard">
+  <div class="sidebar">
+    <h2>NovaCrypto</h2>
+    <button class="tabBtn active" data-tab="overview">Overview</button>
+    <button class="tabBtn" data-tab="watchlist">Watchlist</button>
+    <button class="tabBtn" data-tab="gainers">Top Gainers</button>
+    <button class="tabBtn" data-tab="losers">Top Losers</button>
+    <button id="logoutBtn">Logout</button>
+    <div id="coinQuickSelect"></div>
+  </div>
+
+  <div class="main">
+    <div class="search">
+      <input type="text" id="search" placeholder="Search coins...">
+    </div>
+    <div id="overview" class="grid"></div>
+    <div id="watchlist" class="grid" style="display:none;"></div>
+    <div id="gainers" class="grid" style="display:none;"></div>
+    <div id="losers" class="grid" style="display:none;"></div>
+
+    <div id="detail" class="detail" style="display:none;">
+      <button id="backBtn">⬅ Back</button>
+      <h2 id="coinTitle"></h2>
+      <canvas id="bigChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
